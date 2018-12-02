@@ -1,50 +1,41 @@
 from Tkinter import *
 import random
-#import sensor.py
+#from sensor import *
 
 
-firstHalfOfQuestionList = ["1/3"] # ["1/2", "1/4", "1/6", "1/8", "1/10", "1/12", "1/3", "1/2", "2/4", "2/3"]
-secondHalfOfQuestionList = ["1/6"] # ["1/2", "1/4", "1/6", "1/8", "1/10", "1/12", "1/6", "2/4", "3/6", "2/6"]
-answers = []
+firstHalfOfQuestionList = ["1/2"]#["1/2",  "1/4", "1/6", "1/8", "1/10", "1/12", "1/3", "1/2", "1/4", "2/12", "1/12", "1/8", "2/10", "1/10", "1/10", "1/12", "1/4", "1/5",  "2/8", "2/6", "1/6", "1/6"]
+secondHalfOfQuestionList = ["1/4"]#["1/2", "1/4", "1/6", "1/8", "1/10", "1/12", "1/6", "2/4", "2/8", "2/12", "3/12", "2/8", "2/10", "3/10", "2/10", "2/12", "1/8", "1/10", "2/8", "2/6", "3/6", "2/6"]
 
-correctAnswer = "3/4"
-
-global amountOfTimesScannedCorrectly
-amountOfTimesScannedCorrectly = 0
+answers =                  ["3/4", "2/2",  "2/4", "2/6", "2/8", "2/10", "2/12", "3/6", "4/4", "4/8", "4/12", "4/12", "3/8", "4/10", "4/10", "3/10", "3/12", "3/8", "3/10", "4/8", "4/6", "4/6", "3/6"]
+reducedAnswers =           ["3/4", "1/1",  "1/2", "1/3", "1/4", "1/5",  "1/6",  "1/2", "1/1", "1/2", "1/3",  "1/3",  "3/8", "2/5",  "2/5",  "3/10", "1/4",  "3/8", "3/10", "1/2", "2/3", "2/3", "1/2"]
 
 def changeQuestion():
     
     global firstHalfOfQuestion
     global secondHalfOfQuestion
-    #global correctAnswer
     
-    index = random.randint(0, len(firstHalfOfQuestionList) - 1)
+    global correctAnswer
+    global correctReducedAnswer
+    
+    global amountOfTimesScannedCorrectly
+    amountOfTimesScannedCorrectly = 0
+    
+    index = random.randint(0, len(firstHalfOfQuestionList) - 1) # pick a random question
     firstHalfOfQuestion = firstHalfOfQuestionList[index]
     secondHalfOfQuestion = secondHalfOfQuestionList[index]
     
-    question.configure(text = "What is " + firstHalfOfQuestion + " + " + secondHalfOfQuestion)
-
-def determineCommonDenominator():
+    correctAnswer = answers[index] # get the answers to the selected question
+    correctReducedAnswer = reducedAnswers[index]
     
-    global commonDenominator
-    firstCommonDenominator = int(firstHalfOfQuestion[2:]) # get the denominators for both halves of the question
-    secondCommonDenominator = int(secondHalfOfQuestion[2:])
-    
-    biggerDenominator = max(firstCommonDenominator, secondCommonDenominator) # get biggest and smallest denominators from the 2 halves of the question
-    smallerDenominator = min(firstCommonDenominator, secondCommonDenominator)
-    
-    if biggerDenominator == smallerDenominator:
-        commonDenominator = biggerDenominator
-    
-    elif biggerDenominator % smallerDenominator == 0:
-        commonDenominator = biggerDenominator
-    
-    else: commonDenominator = biggerDenominator * smallerDenominator
+    question.configure(text = "What is " + firstHalfOfQuestion + " + " + secondHalfOfQuestion + "?")
 
 def checkCommonDenominator():
     
+    #userDenominator = sensor.getScannedFraction()[2:]
     userDenominator = 4
-    determineCommonDenominator()
+    
+    global commonDenominator
+    commonDenominator = int(correctAnswer[2:])
     
     if userDenominator == commonDenominator:
         denominatorButton.grid_forget()
@@ -55,30 +46,63 @@ def checkCommonDenominator():
 
 def checkAnswer():
     
-    userAnswer = "1/4"
+    #scannedFraction = sensor.getScannedFraction()
+    scannedFraction = "1/4"
     correctNumerator = int(correctAnswer[0])
-    #print correctNumerator
     
-    if userAnswer[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the answer is correct
+    if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the denominator is correct
         
         feedback.configure(text = "You're on the right track!")
         
-        global amountOfTimesScannedCorrectly #= amountOfTimesScannedCorrectly + 1
+        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = amountOfTimesScannedCorrectly + 1
     
     else:
-        feedback.configure(text = "Please try again.") # if the answer is incorrect
+        feedback.configure(text = "Please try again.") # if the denominator is incorrect
+        global amountOfTimesScannedCorrectly
+        amountOfTimesScannedCorrectly = 0 # restart
     
-    if userAnswer[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator:
+    if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator: # if the correct fraction was scanned as many times as the answer's numerator
         
         global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = 0
         
         feedback.configure(text = "Correct!")
         answerButton.grid_forget()
+        
+        if correctAnswer == correctReducedAnswer: 
+            denominatorButton.grid(row = 1, column = 0)
+            changeQuestion()
+            
+        else: reducedAnswerButton.grid(row = 1, column = 0)
+    
+def checkReducedAnswer():
+    
+    #scannedFraction = sensor.getScannedFraction()
+    scannedFraction = "3/4"
+    correctNumerator = int(correctReducedAnswer[0])
+    
+    if scannedFraction[2:] == correctReducedAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the denominator is correct
+        
+        feedback.configure(text = "You're on the right track!")
+        
+        global amountOfTimesScannedCorrectly
+        amountOfTimesScannedCorrectly = amountOfTimesScannedCorrectly + 1
+    
+    else:
+        feedback.configure(text = "Please try again.") # if the denominator is incorrect
+        global amountOfTimesScannedCorrectly
+        amountOfTimesScannedCorrectly = 0 # restart
+    
+    if scannedFraction[2:] == correctReducedAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator: # if the correct fraction was scanned as many times as the answer's numerator
+        
+        global amountOfTimesScannedCorrectly
+        amountOfTimesScannedCorrectly = 0
+        
+        feedback.configure(text = "Correct!")
+        reducedAnswerButton.grid_forget()
         denominatorButton.grid(row = 1, column = 0)
         changeQuestion()
-    
 
 window = Tk() # GUI window
 window.title("Interactive Fractions")
@@ -91,6 +115,7 @@ denominatorButton = Button(window, text = "Confirm Common Denominator", command 
 denominatorButton.grid(row = 1, column = 0)
 
 answerButton = Button(window, text = "Confirm Answer", command = checkAnswer, width = 20)
+reducedAnswerButton = Button(window, text = "Confirm Reduced Answer", command = checkReducedAnswer, width = 20)
 
 feedback = Label(window, text = "")
 feedback.grid(row = 2, column = 0)
