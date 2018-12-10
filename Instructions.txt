@@ -1,0 +1,37 @@
+Open FractionsGUI.py in an IDE and run the file.
+
+A window will pop up and ask a question.
+
+First, confirm the common denominator by putting your 
+answer on the sensor and pressing the button. It is
+recommended to put the fraction as close to the sensor 
+as possible to get an accurate reading.
+
+If the denominator is incorrect, the app will tell the 
+user to try again. If it is correct, the app will ask the
+user to confirm the answer to the question.
+
+Confirm the answer like before. Make sure that the answer 
+is in an unreduced form. For example, 1/4 + 1/4 would be
+2/4 in this step instead of 1/2.
+
+If the numerator is greater than 1, the the fraction will
+need to be scanned multiple times. For example, if you
+think the answer is 4/8, then the 1/8 fraction will need
+to be scanned 4 times.
+
+If an incorrect fraction is scanned at any point, or if 
+the sensor doesn't detect the fraction properly, the 
+app will tell the user to try again and the user will
+have to start over.
+
+If the answer can be reduced, the app will ask the user to
+give the answer in reduced form. For example, if the 
+answer was 4/10 in the previous step, then the answer in
+this step would be 2/5. Confirm the answer the same way 
+as in the previous step. Once the correct answer is 
+given, the app will ask a new question.
+
+If the answer in the second step can't be reduced any 
+further (for example, if the answer was 2/3), the app will
+skip the reducing step and ask a new question.

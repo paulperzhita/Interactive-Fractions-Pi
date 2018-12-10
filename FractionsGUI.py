@@ -1,13 +1,13 @@
-from Tkinter import *
+from tkinter import *
 import random
-#from sensor import *
+from sensor import getScannedFraction
 
 
-firstHalfOfQuestionList = ["1/2"]#["1/2",  "1/4", "1/6", "1/8", "1/10", "1/12", "1/3", "1/2", "1/4", "2/12", "1/12", "1/8", "2/10", "1/10", "1/10", "1/12", "1/4", "1/5",  "2/8", "2/6", "1/6", "1/6"]
-secondHalfOfQuestionList = ["1/4"]#["1/2", "1/4", "1/6", "1/8", "1/10", "1/12", "1/6", "2/4", "2/8", "2/12", "3/12", "2/8", "2/10", "3/10", "2/10", "2/12", "1/8", "1/10", "2/8", "2/6", "3/6", "2/6"]
+firstHalfOfQuestionList =  ["1/2", "1/2", "1/4", "1/6", "1/8", "1/10", "1/3", "1/2", "1/4", "1/8", "2/10", "1/10", "1/10", "1/4", "1/5",  "2/8", "2/6", "1/6", "1/6", "1/8", "1/6", "1/2"]
+secondHalfOfQuestionList = ["1/4", "1/2", "1/4", "1/6", "1/8", "1/10", "1/6", "2/4", "2/8", "2/8", "2/10", "3/10", "2/10", "1/8", "1/10", "2/8", "2/6", "3/6", "2/6", "3/8", "2/6", "1/3"]
 
-answers =                  ["3/4", "2/2",  "2/4", "2/6", "2/8", "2/10", "2/12", "3/6", "4/4", "4/8", "4/12", "4/12", "3/8", "4/10", "4/10", "3/10", "3/12", "3/8", "3/10", "4/8", "4/6", "4/6", "3/6"]
-reducedAnswers =           ["3/4", "1/1",  "1/2", "1/3", "1/4", "1/5",  "1/6",  "1/2", "1/1", "1/2", "1/3",  "1/3",  "3/8", "2/5",  "2/5",  "3/10", "1/4",  "3/8", "3/10", "1/2", "2/3", "2/3", "1/2"]
+answers =                  ["3/4", "2/2", "2/4", "2/6", "2/8", "2/10", "3/6", "4/4", "4/8", "3/8", "4/10", "4/10", "3/10", "3/8", "3/10", "4/8", "4/6", "4/6", "3/6", "4/8", "3/6", "5/6"]
+reducedAnswers =           ["3/4", "1/1", "1/2", "1/3", "1/4", "1/5",  "1/2", "1/1", "1/2", "3/8", "2/5",  "2/5",  "3/10", "3/8", "3/10", "1/2", "2/3", "2/3", "1/2", "1/2", "1/2", "5/6"]
 
 def changeQuestion():
     
@@ -31,8 +31,9 @@ def changeQuestion():
 
 def checkCommonDenominator():
     
-    #userDenominator = sensor.getScannedFraction()[2:]
-    userDenominator = 4
+    userDenominator = int( getScannedFraction()[2:] )
+    print ("Denominator: " + str(userDenominator) )
+    #userDenominator = 4
     
     global commonDenominator
     commonDenominator = int(correctAnswer[2:])
@@ -46,8 +47,9 @@ def checkCommonDenominator():
 
 def checkAnswer():
     
-    #scannedFraction = sensor.getScannedFraction()
-    scannedFraction = "1/4"
+    scannedFraction = getScannedFraction()
+    #scannedFraction = "1/4"
+    print("Answer: " + str(scannedFraction) )
     correctNumerator = int(correctAnswer[0])
     
     if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the denominator is correct
@@ -78,8 +80,9 @@ def checkAnswer():
     
 def checkReducedAnswer():
     
-    #scannedFraction = sensor.getScannedFraction()
-    scannedFraction = "3/4"
+    scannedFraction = getScannedFraction()
+    #scannedFraction = "3/4"
+    print("Reduced Answer: " + str(scannedFraction) )
     correctNumerator = int(correctReducedAnswer[0])
     
     if scannedFraction[2:] == correctReducedAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the denominator is correct
