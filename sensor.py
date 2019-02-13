@@ -6,7 +6,7 @@ import time
 i2c = busio.I2C(board.SCL, board.SDA)
 colorSensor = adafruit_tcs34725.TCS34725(i2c)
 
-def getScannedFraction():
+def getScannedFraction(): # match the reading from the fraction circle to its corresponding color
     
     red = colorSensor.color_rgb_bytes[0]
     green = colorSensor.color_rgb_bytes[1]

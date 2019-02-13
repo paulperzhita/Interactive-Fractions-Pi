@@ -31,14 +31,14 @@ def changeQuestion():
 
 def checkCommonDenominator():
     
-    userDenominator = int( getScannedFraction()[2:] )
+    userDenominator = int( getScannedFraction()[2:] ) # import from sensor file
     print ("Denominator: " + str(userDenominator) )
     #userDenominator = 4
     
     global commonDenominator
     commonDenominator = int(correctAnswer[2:])
     
-    if userDenominator == commonDenominator:
+    if userDenominator == commonDenominator: # if the user's denominator is correct, go to the next step
         denominatorButton.grid_forget()
         answerButton.grid(row = 1, column = 0)
         feedback.configure(text = "")
@@ -52,7 +52,7 @@ def checkAnswer():
     print("Answer: " + str(scannedFraction) )
     correctNumerator = int(correctAnswer[0])
     
-    if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the denominator is correct
+    if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the scanned fraction is correct but the user isn't finished yet
         
         feedback.configure(text = "You're on the right track!")
         
@@ -72,11 +72,11 @@ def checkAnswer():
         feedback.configure(text = "Correct!")
         answerButton.grid_forget()
         
-        if correctAnswer == correctReducedAnswer: 
+        if correctAnswer == correctReducedAnswer: # if the answer is already reduced, ask a completely new question
             denominatorButton.grid(row = 1, column = 0)
             changeQuestion()
             
-        else: reducedAnswerButton.grid(row = 1, column = 0)
+        else: reducedAnswerButton.grid(row = 1, column = 0) # otherwise, ask for the reduced answer
     
 def checkReducedAnswer():
     
@@ -117,8 +117,8 @@ question.grid(row = 0, column = 0)
 denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
 denominatorButton.grid(row = 1, column = 0)
 
-answerButton = Button(window, text = "Confirm Answer", command = checkAnswer, width = 20)
-reducedAnswerButton = Button(window, text = "Confirm Reduced Answer", command = checkReducedAnswer, width = 20)
+answerButton = Button(window, text = "Confirm Unsimplified Answer", command = checkAnswer, width = 20)
+reducedAnswerButton = Button(window, text = "Confirm Simplified Answer", command = checkReducedAnswer, width = 20)
 
 feedback = Label(window, text = "")
 feedback.grid(row = 2, column = 0)
