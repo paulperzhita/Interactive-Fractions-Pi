@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Button,Tk,Label
 import random
 from sensor import getScannedFraction
 
@@ -56,17 +56,14 @@ def checkAnswer():
         
         feedback.configure(text = "You're on the right track!")
         
-        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = amountOfTimesScannedCorrectly + 1
     
     else:
         feedback.configure(text = "Please try again.") # if the denominator is incorrect
-        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = 0 # restart
     
     if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator: # if the correct fraction was scanned as many times as the answer's numerator
         
-        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = 0
         
         feedback.configure(text = "Correct!")
@@ -89,17 +86,14 @@ def checkReducedAnswer():
         
         feedback.configure(text = "You're on the right track!")
         
-        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = amountOfTimesScannedCorrectly + 1
     
     else:
         feedback.configure(text = "Please try again.") # if the denominator is incorrect
-        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = 0 # restart
     
     if scannedFraction[2:] == correctReducedAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator: # if the correct fraction was scanned as many times as the answer's numerator
         
-        global amountOfTimesScannedCorrectly
         amountOfTimesScannedCorrectly = 0
         
         feedback.configure(text = "Correct!")
