@@ -42,10 +42,10 @@ def getScannedFraction():
 
     else: return "1/1"
 
-i = 0;
+i = 0
 while i < 10: #True:
     print('Color: ({0}, {1}, {2})'.format(*colorSensor.color_rgb_bytes))
-    i = i + 1;
+    i = i + 1
     #time.sleep(2)
 
 
