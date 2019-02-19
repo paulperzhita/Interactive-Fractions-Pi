@@ -114,23 +114,18 @@ question = Label(window, text = "")
 changeQuestion()
 question.grid(row = 0, column = 0)
 
-while(True):
-    if(getScannedFraction):
 
-        # denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
-        denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
-        denominatorButton.grid(row = 1, column = 0)
+denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
+denominatorButton.grid(row = 1, column = 0)
 
 
-        answerButton = Button(window, text = "Confirm Unsimplified Answer", command = checkAnswer, width = 20)
-        reducedAnswerButton = Button(window, text = "Confirm Simplified Answer", command = checkReducedAnswer, width = 20)
+answerButton = Button(window, text = "Confirm Unsimplified Answer", command = checkAnswer, width = 20)
+reducedAnswerButton = Button(window, text = "Confirm Simplified Answer", command = checkReducedAnswer, width = 20)
 
-        feedback = Label(window, text = "")
-        feedback.grid(row = 2, column = 0)
-        checkCommonDenominator()
+feedback = Label(window, text = "")
+feedback.grid(row = 2, column = 0)
 
-
-    window.mainloop()
+window.mainloop()
 
 
 
