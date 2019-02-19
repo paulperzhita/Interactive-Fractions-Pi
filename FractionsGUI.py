@@ -119,7 +119,6 @@ while(True):
 
         # denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
         denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
-        checkCommonDenominator()
         denominatorButton.grid(row = 1, column = 0)
 
 
@@ -128,6 +127,8 @@ while(True):
 
         feedback = Label(window, text = "")
         feedback.grid(row = 2, column = 0)
+        checkCommonDenominator()
+
 
     window.mainloop()
 
