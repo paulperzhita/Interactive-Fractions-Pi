@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Label,Frame,Tk
 
 # if you are still working under a Python 2 version, 
 # comment out the previous line and uncomment the following line

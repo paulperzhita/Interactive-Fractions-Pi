@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Tk,Frame,Grid, Label, Button
 
 app = Tk()
 app.title("Interactive Fractions")
