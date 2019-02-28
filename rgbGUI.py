@@ -31,9 +31,9 @@ blue.place(x=400, y=200, anchor="center")
 
 def make():
     colors=getRGB()
-    red=Label(f,text="RED: "+str(colors[0]))
-    green=Label(f,text="GREEN: "+str(colors[1]))
-    blue=Label(f,text="BLUE: "+str(colors[2]))
+    red.config(text="RED: "+str(colors[0]))
+    green.config(text="GREEN: "+str(colors[1]))
+    blue.config(text="BLUE: "+str(colors[2]))
     app.after(1000,make)
 
 make()
