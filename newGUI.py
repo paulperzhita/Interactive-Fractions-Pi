@@ -22,7 +22,7 @@ question.place(x=400, y=100, anchor="center")
 # * Submit Button
 submit=Button(f,text="Submit")
 submit.config(font=("Roboto Slab", 60))
-submit.place(x=4000, y=220, anchor="center")
+submit.place(x=400, y=220, anchor="center")
 
 # * Hint Label
 hint = Label(f,text="Hint comes here")
