@@ -164,14 +164,17 @@ denominatorButton=Button(f,text="Confirm Common Denominator", command = checkCom
 denominatorButton.config(font=("Roboto Slab", 20))
 denominatorButton.place(x=400, y=220, anchor="center")
 answerButton = Button(f, text = "Confirm Unsimplified Answer", command = checkAnswer)
+answerButton.config(font=("Roboto Slab", 20))
 reducedAnswerButton = Button(f, text = "Confirm Simplified Answer", command = checkReducedAnswer)
+reducedAnswerButton.config(font=("Roboto Slab", 20))
+
 
 # * Feedback Label 
 feedback = Label(f, text = "")
 feedback.place(x=400,y=270)
 
 # * Hint Button
-hintButton = Button(f, text = "Hint", command = createHint)
+hintButton = Button(f, text = "Hint", command = createHint,anchor="center")
 hintButton.place(x=400,y=320)
 
 
