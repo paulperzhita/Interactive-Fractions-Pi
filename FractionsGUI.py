@@ -46,8 +46,8 @@ def checkCommonDenominator():
     global currentStage
     
     if userDenominator == commonDenominator: # if the user's denominator is correct, go to the next step
-        denominatorButton.grid_forget()
-        answerButton.grid(row = 1, column = 0)
+        denominatorButton.place_forget()
+        answerButton.place(x=400, y=220, anchor="center")
         
         feedback.configure(text = "")
         hint.configure(text = "")
@@ -81,14 +81,14 @@ def checkAnswer():
         hint.configure(text = "")
         feedback.configure(text = "Correct!")
         
-        answerButton.grid_forget()
+        answerButton.place_forget()
         
         if correctAnswer == correctReducedAnswer: # if the answer is already reduced, ask a completely new question
-            denominatorButton.grid(row = 1, column = 0)
+            denominatorButton.place(x=400, y=220, anchor="center")
             changeQuestion()
             
         else:
-            reducedAnswerButton.grid(row = 1, column = 0) # otherwise, ask for the reduced answer
+            reducedAnswerButton.place(x=400, y=220, anchor="center") # otherwise, ask for the reduced answer
             currentStage = "reduced"
     
 def checkReducedAnswer():
@@ -116,8 +116,8 @@ def checkReducedAnswer():
         feedback.configure(text = "Correct!")
         hint.configure(text = "")
         
-        reducedAnswerButton.grid_forget()
-        denominatorButton.grid(row = 1, column = 0)
+        reducedAnswerButton.place_forget()
+        denominatorButton.place(x=400, y=220, anchor="center")
         changeQuestion()
 
 def createHint():
