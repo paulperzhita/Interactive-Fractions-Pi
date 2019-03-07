@@ -156,7 +156,7 @@ title.place(x=400, y=50, anchor="center")
 # * Question Label
 question = Label(f,text="")
 changeQuestion()
-question.config(font=("Roboto Slab", 15))
+question.config(font=("Roboto Slab", 8))
 question.place(x=400, y=100, anchor="center")
 
 # * Submit Button
