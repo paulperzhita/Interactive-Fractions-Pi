@@ -15,14 +15,26 @@ title.config(font=("Roboto Slab", 20))
 title.place(x=400, y=50, anchor="center")
 
 # * Question Label
-question = Label(f,text="Question comes here")
+question = Label(f,text="")
+changeQuestion()
 question.config(font=("Roboto Slab", 15))
 question.place(x=400, y=100, anchor="center")
 
 # * Submit Button
-submit=Button(f,text="Submit")
-submit.config(font=("Roboto Slab", 60))
-submit.place(x=400, y=220, anchor="center")
+denominatorButton=Button(f,text="Confirm Common Denominator", command = checkCommonDenominator)
+denominatorButton.config(font=("Roboto Slab", 60))
+denominatorButton.place(x=400, y=220, anchor="center")
+answerButton = Button(f, text = "Confirm Unsimplified Answer", command = checkAnswer)
+reducedAnswerButton = Button(f, text = "Confirm Simplified Answer", command = checkReducedAnswer)
+
+# * Feedback Label 
+feedback = Label(f, text = "")
+feedback.place(x=400,y=270)
+
+# * Hint Button
+hintButton = Button(f, text = "Hint", command = createHint)
+hintButton.place(x=400,y=320)
+
 
 # * Hint Label
 hint = Label(f,text="Hint comes here")

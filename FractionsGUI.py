@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Tk,Frame,Grid, Label, Button
 import random
 from sensor import getScannedFraction
 
@@ -139,28 +139,45 @@ def createHint():
         hint.configure(text = "The numerator and denominator can be divided by " + str(reducer) )
 
 
-window = Tk() # GUI window
-window.title("Interactive Fractions")
-window.configure(width=600,height=400)
+app = Tk()
+app.title("Interactive Fractions") # * Name of the window 
 
-question = Label(window, text = "") 
+# * Main frame on which everything is added 
+f = Frame(app,width=800,height=500)
+f.grid(row=1,column=0,sticky="NW")
+f.grid_propagate(0)
+f.update()
+
+# * Title Label 
+title = Label(f,text="Welcome To Interactive Fractions")
+title.config(font=("Roboto Slab", 20))
+title.place(x=400, y=50, anchor="center")
+
+# * Question Label
+question = Label(f,text="")
 changeQuestion()
-question.grid(row = 0, column = 0)
+question.config(font=("Roboto Slab", 15))
+question.place(x=400, y=100, anchor="center")
 
-denominatorButton = Button(window, text = "Confirm Common Denominator", command = checkCommonDenominator)
-denominatorButton.grid(row = 1, column = 0)
+# * Submit Button
+denominatorButton=Button(f,text="Confirm Common Denominator", command = checkCommonDenominator)
+denominatorButton.config(font=("Roboto Slab", 60))
+denominatorButton.place(x=400, y=220, anchor="center")
+answerButton = Button(f, text = "Confirm Unsimplified Answer", command = checkAnswer)
+reducedAnswerButton = Button(f, text = "Confirm Simplified Answer", command = checkReducedAnswer)
 
-answerButton = Button(window, text = "Confirm Unsimplified Answer", command = checkAnswer, width = 20)
-reducedAnswerButton = Button(window, text = "Confirm Simplified Answer", command = checkReducedAnswer, width = 20)
+# * Feedback Label 
+feedback = Label(f, text = "")
+feedback.place(x=400,y=270)
 
-feedback = Label(window, text = "")
-feedback.grid(row = 2, column = 0)
+# * Hint Button
+hintButton = Button(f, text = "Hint", command = createHint)
+hintButton.place(x=400,y=320)
 
-hintButton = Button(window, text = "Hint", command = createHint)
-hintButton.grid(row = 3, column = 0)
 
-hint = Label(window, text = "")
-hint.grid(row = 4, column = 0)
+# * Hint Label
+hint = Label(f,text="Hint comes here")
+hint.config(font=("Roboto Slab", 15))
+hint.place(x=400, y=360, anchor="center")
 
-window.mainloop()
-
+app.mainloop() # * Starts the GUI
