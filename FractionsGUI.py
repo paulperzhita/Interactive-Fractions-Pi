@@ -176,8 +176,8 @@ hintButton.place(x=400,y=320)
 
 
 # * Hint Label
-hint = Label(f,text="Hint comes here")
+hint = Label(f,text="")
 hint.config(font=("Roboto Slab", 15))
-hint.place(x=400, y=360, anchor="center")
+hint.place(x=400, y=380, anchor="center")
 
 app.mainloop() # * Starts the GUI
