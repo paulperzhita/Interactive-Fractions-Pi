@@ -12,35 +12,46 @@ def getScannedFraction(): # match the reading from the fraction circle to its co
     green = colorSensor.color_rgb_bytes[1]
     blue = colorSensor.color_rgb_bytes[2]
 
+    print(" ")
     print("red: " + str(red))
     print("green: " + str(green))
     print("blue: " + str(blue))
 
     if(red > 90 and green < 7 and blue < 6):
+        print("Color: Red")
         return "1/8"
     
     elif(red < 10 and green > 5 and green < 20 and blue > 50):
+        print("Color: Blue")
         return "1/1"
     
     elif(red > 5 and red < 15 and green > 10 and green < 20 and blue > 15 and blue < 25):
+        print("Color: Brown")
         return "1/2"
     
     elif(red < 10 and green > 10 and green < 25 and blue > 20 and blue < 35):
+        print("Color: Black")
         return "1/3"
     
     elif(red > 100 and green > 100 and blue > 30):
+        print("Color: Yellow")
         return "1/4"
     
     elif(red < 5 and green > 40 and green < 55 and blue > 5 and blue < 15):
+        print("Color: Green")
         return "1/5"
     
     elif(red > 70 and green < 10 and blue < 5 ):
+        print("Color: Orange")
         return "1/6"
     
     elif(red > 10 and red < 30 and green < 15 and blue > 20 and blue < 40):
+        print("Color: Purple")
         return "1/10"
 
-    else: return "1/1"
+    else:
+        print("Color: Blue")
+        return "1/1"
 
 def getProperColor(): # match the reading from the fraction circle to its corresponding color
     

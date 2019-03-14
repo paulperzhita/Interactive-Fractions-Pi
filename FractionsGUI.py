@@ -35,6 +35,7 @@ def changeQuestion():
     correctReducedAnswer = reducedAnswers[index]
     
     question.configure(text = "What is " + firstHalfOfQuestion + " + " + secondHalfOfQuestion + "?")
+    instructions.configure(text = "Begin Scanning The Common Denominator.")
 
 def checkCommonDenominator():
     
@@ -47,10 +48,14 @@ def checkCommonDenominator():
     
     if userDenominator == commonDenominator: # if the user's denominator is correct, go to the next step
         denominatorButton.place_forget()
-        answerButton.place(x=400, y=220, anchor="center")
+        answerButton.place(x=400, y=240, anchor="center")
         
-        feedback.configure(text = "")
+        feedback.configure(text = "Correct!")
         hint.configure(text = "")
+        previousAnswer.configure( text = "Common Denominator: " + str(commonDenominator) )
+        answerInProgress.configure(text = "Answer In Progress: " + " /" + str(commonDenominator) )
+        instructions.configure(text = "Begin Scanning The Unsimplified Answer.")
+        
         currentStage = "unreduced"
     
     else: feedback.configure(text = "Please try again.")
@@ -60,19 +65,23 @@ def checkAnswer():
     scannedFraction = getScannedFraction()
     correctNumerator = int(correctAnswer[0])
 
+    feedback.configure(text = "")
+
     global amountOfTimesScannedCorrectly
     global currentStage
+    global commonDenominator
     
     if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the scanned fraction is correct but the user isn't finished yet
         
         feedback.configure(text = "You're on the right track!")
-        
         amountOfTimesScannedCorrectly = amountOfTimesScannedCorrectly + 1
+        answerInProgress.configure(text = "Answer In Progress: " + str(amountOfTimesScannedCorrectly) + "/" + str(commonDenominator) )
     
     else:
-        feedback.configure(text = "Please try again.") # if the denominator is incorrect
         
+        feedback.configure(text = "Please try again.") # if the denominator is incorrect
         amountOfTimesScannedCorrectly = 0 # restart
+        answerInProgress.configure(text = "Answer In Progress: " + " /" + str(commonDenominator) )
     
     if scannedFraction[2:] == correctAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator: # if the correct fraction was scanned as many times as the answer's numerator
         
@@ -84,11 +93,19 @@ def checkAnswer():
         answerButton.place_forget()
         
         if correctAnswer == correctReducedAnswer: # if the answer is already reduced, ask a completely new question
-            denominatorButton.place(x=400, y=220, anchor="center")
+
+            currentStage = "denominator"
+            denominatorButton.place(x=400, y=240, anchor="center")
+            previousAnswer.configure(text = "")
+            answerInProgress.configure(text = "")
             changeQuestion()
             
         else:
-            reducedAnswerButton.place(x=400, y=220, anchor="center") # otherwise, ask for the reduced answer
+            
+            reducedAnswerButton.place(x=400, y=240, anchor="center") # otherwise, ask for the reduced answer
+            previousAnswer.configure( text = "Unsimplified Answer: " + correctAnswer[0] + "/" + str(commonDenominator) )
+            answerInProgress.configure(text = "Answer In Progress: " + " /" )
+            instructions.configure(text = "Begin Scanning The Simplified Answer.")
             currentStage = "reduced"
     
 def checkReducedAnswer():
@@ -97,27 +114,32 @@ def checkReducedAnswer():
     correctNumerator = int(correctReducedAnswer[0])
 
     global amountOfTimesScannedCorrectly
+    global currentStage
     
     if scannedFraction[2:] == correctReducedAnswer[2:] and amountOfTimesScannedCorrectly < correctNumerator: # if the denominator is correct
         
         feedback.configure(text = "You're on the right track!")
-        
         amountOfTimesScannedCorrectly = amountOfTimesScannedCorrectly + 1
+        answerInProgress.configure(text = "Answer In Progress: " + str(amountOfTimesScannedCorrectly) +  "/" + correctReducedAnswer[2:])
     
     else:
-        feedback.configure(text = "Please try again.") # if the denominator is incorrect
         
+        feedback.configure(text = "Please try again.") # if the denominator is incorrect
         amountOfTimesScannedCorrectly = 0 # restart
+        answerInProgress.configure(text = "Answer In Progress: " + " / ")
     
     if scannedFraction[2:] == correctReducedAnswer[2:] and amountOfTimesScannedCorrectly == correctNumerator: # if the correct fraction was scanned as many times as the answer's numerator
         
         amountOfTimesScannedCorrectly = 0
+        currentStage = "denominator"
         
         feedback.configure(text = "Correct!")
+        answerInProgress.configure(text = "")
         hint.configure(text = "")
         
         reducedAnswerButton.place_forget()
-        denominatorButton.place(x=400, y=220, anchor="center")
+        denominatorButton.place(x=400, y=240, anchor="center")
+        previousAnswer.configure(text = "")
         changeQuestion()
 
 def createHint():
@@ -149,33 +171,48 @@ f.grid_propagate(0)
 f.update()
 
 # * Title Label 
-title = Label(f,text="Welcome To Interactive Fractions")
+title = Label(f,text="Welcome To Interactive Fractions!")
 title.config(font=("Roboto Slab", 20))
-title.place(x=400, y=50, anchor="center")
+title.place(x=400, y=30, anchor="center")
 
 # * Question Label
 question = Label(f,text="")
-changeQuestion()
-question.config(font=("Roboto Slab", 15))
-question.place(x=400, y=100, anchor="center")
+question.config(font=("Roboto Slab", 17))
+question.place(x=400, y=80, anchor="center")
+
+# * Previous Answer Label
+previousAnswer = Label(f,text="")
+previousAnswer.config(font=("Roboto Slab", 15))
+previousAnswer.place(x=400, y=120, anchor="center")
+
+# * Answer In Progress Label
+answerInProgress = Label(f,text="")
+answerInProgress.config(font=("Roboto Slab", 15))
+answerInProgress.place(x=400, y=160, anchor="center")
+
+# * Instructions Label
+instructions = Label(f,text="Please Scan The Common Denominator.")
+instructions.config(font=("Roboto Slab", 15))
+instructions.place(x=400, y=200, anchor="center")
 
 # * Submit Button
-denominatorButton=Button(f,text="Confirm Common Denominator", command = checkCommonDenominator)
+denominatorButton=Button(f,text="Scan", command = checkCommonDenominator)
 denominatorButton.config(font=("Roboto Slab", 20))
-denominatorButton.place(x=400, y=220, anchor="center")
-answerButton = Button(f, text = "Confirm Unsimplified Answer", command = checkAnswer)
+denominatorButton.place(x=400, y=240, anchor="center")
+answerButton = Button(f, text = "Scan", command = checkAnswer)
 answerButton.config(font=("Roboto Slab", 20))
-reducedAnswerButton = Button(f, text = "Confirm Simplified Answer", command = checkReducedAnswer)
+reducedAnswerButton = Button(f, text = "Scan", command = checkReducedAnswer)
 reducedAnswerButton.config(font=("Roboto Slab", 20))
 
 
 # * Feedback Label 
 feedback = Label(f, text = "")
-feedback.place(x=400,y=270)
+feedback.config(font=("Roboto Slab", 15))
+feedback.place(x=320,y=280)
 
 # * Hint Button
 hintButton = Button(f, text = "Hint", command = createHint,anchor="center")
-hintButton.place(x=400,y=320)
+hintButton.place(x=370,y=330)
 
 
 # * Hint Label
@@ -183,4 +220,5 @@ hint = Label(f,text="")
 hint.config(font=("Roboto Slab", 15))
 hint.place(x=400, y=380, anchor="center")
 
+changeQuestion()
 app.mainloop() # * Starts the GUI
