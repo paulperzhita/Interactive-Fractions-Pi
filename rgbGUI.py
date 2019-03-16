@@ -1,5 +1,5 @@
 from tkinter import Tk,Frame,Grid, Label, Button, Canvas
-from rbgSensor import getRGB
+from rgbSensor import getRGB
 
 app = Tk()
 app.title("RGB GUI") # * Name of the window 
