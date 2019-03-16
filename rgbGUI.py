@@ -10,11 +10,6 @@ f.grid(row=1,column=0,sticky="NW")
 f.grid_propagate(0)
 f.update()
 
-def _from_rgb(rgb):
-    """translates an rgb tuple of int to a tkinter friendly color code
-    """
-    return "#%02x%02x%02x" % rgb
-
 # * Title Label 
 title = Label(f,text="RGB Viewer")
 title.config(font=("Roboto Slab", 20))
