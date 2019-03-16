@@ -1,11 +1,3 @@
-import board
-import busio
-import adafruit_tcs34725
-import time
-
-i2c = busio.I2C(board.SCL, board.SDA)
-colorSensor = adafruit_tcs34725.TCS34725(i2c)
-
 colors={
     "Red":((63,80),(4,9),(4,7)),
     "Orange":((52,63),(7,11),(1,3)),
@@ -27,9 +19,6 @@ def getColorName(r,g,b):
     for col in colors:
         if checkRGB(r,g,b,colors[col]):
             return col
-        
-def getRGB():
-    red = colorSensor.color_rgb_bytes[0]
-    green = colorSensor.color_rgb_bytes[1]
-    blue = colorSensor.color_rgb_bytes[2]
-    return [red,green,blue]
+    return "Color Not Recognized"
+
+print(getColorName(60,5,8))
