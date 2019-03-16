@@ -32,4 +32,4 @@ def getRGB():
     red = colorSensor.color_rgb_bytes[0]
     green = colorSensor.color_rgb_bytes[1]
     blue = colorSensor.color_rgb_bytes[2]
-    return [red,green,blue]
+    return [red,green,blue,getColorName(red,green,blue)]
