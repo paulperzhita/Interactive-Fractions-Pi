@@ -27,6 +27,7 @@ def getColorName(r,g,b):
     for col in colors:
         if checkRGB(r,g,b,colors[col]):
             return col
+    return "Color Not Recognized"
         
 def getRGB():
     red = colorSensor.color_rgb_bytes[0]
