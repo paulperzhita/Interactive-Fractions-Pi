@@ -19,10 +19,11 @@ values={  "Red":"1/8",
     }
 
 def getScannedFraction():
-    colorName=rgbSensor.getRGB()[3]
-    print(colorName)
-    if colorName is "Color Not Recognized":
-        return "-1"
+    colorAttr=rgbSensor.getRGB()
+    colorName=colorAttr[3]
+    print(colorName+": "+str(colorAttr[0])+","+str(colorAttr[1])+","+str(colorAttr[2]))
+    if colorName == "Color Not Recognized":
+        return "1/13"
     else:
         return values[colorName]
 
