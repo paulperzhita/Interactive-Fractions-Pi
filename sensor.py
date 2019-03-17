@@ -2,9 +2,21 @@ import board
 import busio
 import adafruit_tcs34725
 import time
+import rgbSensor
 
 i2c = busio.I2C(board.SCL, board.SDA)
 colorSensor = adafruit_tcs34725.TCS34725(i2c)
+
+values={  "Red":"1/8",
+    "Orange":"1/6",
+    "Yellow":"1/4",
+    "Green":"1/5",
+    "Blue":"1/1",
+    "Purple":"1/10",
+    "Black":"1/3",
+    "Brown":"1/2",
+    "Pink":"1/12"
+    }
 
 def getScannedFraction(): # match the reading from the fraction circle to its corresponding color
     
@@ -53,41 +65,9 @@ def getScannedFraction(): # match the reading from the fraction circle to its co
         print("Color: Blue")
         return "1/1"
 
-def getProperColor(): # match the reading from the fraction circle to its corresponding color
-    
-    red = colorSensor.color_rgb_bytes[0]
-    green = colorSensor.color_rgb_bytes[1]
-    blue = colorSensor.color_rgb_bytes[2]
-
-    print("red: " + str(red))
-    print("green: " + str(green))
-    print("blue: " + str(blue))
-
-    if(red > 90 and green < 7 and blue < 6):
-        return True
-    
-    elif(red < 10 and green > 5 and green < 20 and blue > 50):
-        return True
-    
-    elif(red > 5 and red < 15 and green > 10 and green < 20 and blue > 15 and blue < 25):
-        return True
-    
-    elif(red < 10 and green > 10 and green < 25 and blue > 20 and blue < 35):
-        return "1/3"
-    
-    elif(red > 100 and green > 100 and blue > 30):
-        return True
-    
-    elif(red < 5 and green > 40 and green < 55 and blue > 5 and blue < 15):
-        return True
-    
-    elif(red > 70 and green < 10 and blue < 5 ):
-        return True
-    
-    elif(red > 10 and red < 30 and green < 15 and blue > 20 and blue < 40):
-        return True
-
-    else: return False
+def getScannedFraction2():
+    colorName=rgbSensor.getRGB()[3]
+    return values[colorName]
 
 
 i = 0
