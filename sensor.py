@@ -18,7 +18,7 @@ values={  "Red":"1/8",
     "Pink":"1/12"
     }
 
-def getScannedFraction(): # match the reading from the fraction circle to its corresponding color
+def getScannedFraction2(): # match the reading from the fraction circle to its corresponding color
     
     red = colorSensor.color_rgb_bytes[0]
     green = colorSensor.color_rgb_bytes[1]
@@ -65,8 +65,9 @@ def getScannedFraction(): # match the reading from the fraction circle to its co
         print("Color: Blue")
         return "1/1"
 
-def getScannedFraction2():
+def getScannedFraction():
     colorName=rgbSensor.getRGB()[3]
+    print(colorName)
     return values[colorName]
 
 
