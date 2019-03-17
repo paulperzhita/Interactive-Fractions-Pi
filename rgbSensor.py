@@ -7,7 +7,7 @@ i2c = busio.I2C(board.SCL, board.SDA)
 colorSensor = adafruit_tcs34725.TCS34725(i2c)
 
 colors={
-    "Red":((63,80),(4,9),(4,7)),
+    "Red":((60,80),(4,9),(4,9)),
     "Orange":((52,63),(7,11),(1,3)),
     "Yellow":((30,40),(16,22),(2,4)),
     "Green":((10,16),(20,30),(9,14)),
