@@ -48,7 +48,7 @@ def checkCommonDenominator():
     
     if userDenominator == commonDenominator: # if the user's denominator is correct, go to the next step
         denominatorButton.place_forget()
-        answerButton.place(x=400, y=250, anchor="center")
+        answerButton.place(x=300, y=250, anchor="center")
         
         feedback.configure(text = "Correct!")
         hint.configure(text = "")
@@ -95,14 +95,14 @@ def checkAnswer():
         if correctAnswer == correctReducedAnswer: # if the answer is already reduced, ask a completely new question
 
             currentStage = "denominator"
-            denominatorButton.place(x=400, y=250, anchor="center")
+            denominatorButton.place(x=300, y=250, anchor="center")
             previousAnswer.configure(text = "")
             answerInProgress.configure(text = "")
             changeQuestion()
             
         else:
             
-            reducedAnswerButton.place(x=400, y=250, anchor="center") # otherwise, ask for the reduced answer
+            reducedAnswerButton.place(x=300, y=250, anchor="center") # otherwise, ask for the reduced answer
             previousAnswer.configure( text = "Unsimplified Answer: " + correctAnswer[0] + "/" + str(commonDenominator) )
             answerInProgress.configure(text = "Answer In Progress: " + " /" )
             instructions.configure(text = "Begin Scanning The Simplified Answer.")
@@ -138,7 +138,7 @@ def checkReducedAnswer():
         hint.configure(text = "")
         
         reducedAnswerButton.place_forget()
-        denominatorButton.place(x=400, y=250, anchor="center")
+        denominatorButton.place(x=300, y=250, anchor="center")
         previousAnswer.configure(text = "")
         changeQuestion()
 
@@ -159,6 +159,24 @@ def createHint():
 
     if currentStage == "reduced":
         hint.configure(text = "The numerator and denominator can be divided by " + str(reducer) )
+
+def confirm():
+
+    print("Confirm button is working!")
+
+def reset():
+
+    global amountOfTimesScannedCorrectly
+    global currentStage
+    global commonDenominator
+    
+    amountOfTimesScannedCorrectly = 0
+
+    if currentStage == "unreduced":
+        answerInProgress.configure(text = "Answer In Progress: " + "/" + str(commonDenominator) )
+
+    if currentStage == "reduced":
+        answerInProgress.configure(text = "Answer In Progress: " +  "/" + correctReducedAnswer[2:])
 
 
 app = Tk()
@@ -195,15 +213,19 @@ instructions = Label(f,text="Please Scan The Common Denominator.")
 instructions.config(font=("Roboto Slab", 15))
 instructions.place(x=400, y=200, anchor="center")
 
-# * Submit Button
+# * Scan Button
 denominatorButton=Button(f,text="Scan", command = checkCommonDenominator)
 denominatorButton.config(font=("Roboto Slab", 30))
-denominatorButton.place(x=400, y=250, anchor="center")
+denominatorButton.place(x=300, y=250, anchor="center") #400
 answerButton = Button(f, text = "Scan", command = checkAnswer)
 answerButton.config(font=("Roboto Slab", 30))
 reducedAnswerButton = Button(f, text = "Scan", command = checkReducedAnswer)
 reducedAnswerButton.config(font=("Roboto Slab", 30))
 
+# * Confirm Button
+confirmButton = Button(f,text="Confirm", command = confirm)
+confirmButton.config(font=("Roboto Slab", 30))
+confirmButton.place(x=500, y=250, anchor="center")
 
 # * Feedback Label 
 feedback = Label(f, text = "")
@@ -211,15 +233,19 @@ feedback.config(font=("Roboto Slab", 15))
 feedback.place(x=320,y=280)
 
 # * Hint Button
-hintButton = Button(f, text = "Hint", command = createHint,anchor="center")
+hintButton = Button(f, text = "Hint", command = createHint, anchor="center")
 hintButton.config(font=("Roboto Slab", 20))
-hintButton.place(x=400,y=342,anchor="center")
-
+hintButton.place(x=350,y=342,anchor="center")
 
 # * Hint Label
 hint = Label(f,text="")
 hint.config(font=("Roboto Slab", 15))
 hint.place(x=400, y=380, anchor="center")
+
+# * Reset Button
+resetButton = Button(f, text = "Reset", command = reset, anchor="center")
+resetButton.config(font=("Roboto Slab", 20))
+resetButton.place(x=450,y=342,anchor="center")
 
 changeQuestion()
 app.mainloop() # * Starts the GUI
