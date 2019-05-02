@@ -4,9 +4,8 @@ import adafruit_tcs34725
 import time
 import rgbSensor
 
-i2c = busio.I2C(board.SCL, board.SDA)
-colorSensor = adafruit_tcs34725.TCS34725(i2c)
 
+# * Colors corresponding to the fraction values on the pieces 
 values={  "Red":"1/8",
     "Orange":"1/6",
     "Yellow":"1/4",
@@ -18,6 +17,7 @@ values={  "Red":"1/8",
     "Pink":"1/12"
     }
 
+# * Helper function which returns the fraction value of the color scanned which will be used for calculations and updating the GUI
 def getScannedFraction():
     colorAttr=rgbSensor.getRGB()
     colorName=colorAttr[3]
